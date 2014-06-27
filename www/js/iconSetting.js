@@ -9,7 +9,7 @@ $(window).load(function() {
 	setting_drag();
 	setting_drop();
 	
-	db_init();
+	//db_init();
 	
 	loadSelectedIcon();
 
@@ -63,7 +63,7 @@ $(window).load(function() {
 function select(selectTarget){
 	var clickSelectActivty = $(selectTarget).attr("class");
 	console.log(clickSelectActivty);
-	$(".selected_icon .icon_row").append("<div class='icon'><i data-name=" +$(selectTarget).attr('data-name')+" class=" + "'" +clickSelectActivty +"'" +"></i></div>");
+	$("#selected_icon_row").append("<div class='icon'><i data-name=" +$(selectTarget).attr('data-name')+" class=" + "'" +clickSelectActivty +"'" +"></i></div>");
 	console.log($(selectTarget).attr('data-name'));
 	$(selectTarget).parent(".activityIcon")
 			.append('<div class="checkBack"></div>')
@@ -89,7 +89,7 @@ function selectCount(){
 	}
 }
 
-function db_errorCB(tx, e) { // query 에러시 호출 함수
+function db_errorCB(e) { // query 에러시 호출 함수
 	console.log(e);
 	console.log("e.message :" + e.message);
 }
@@ -98,7 +98,7 @@ function db_errorCB(tx, e) { // query 에러시 호출 함수
 function db_selectIconUpdate(){
 	db.transaction(function(tx) {
 		
-		var sixSelected = $(".selected_icon .icon_row .icon > [data-name]");
+		var sixSelected = $("#selected_icon_row .icon > [data-name]");
 		var selectedNames = new Array();
 		
 		for (var i=0; i < 6 ;i++){
@@ -109,19 +109,19 @@ function db_selectIconUpdate(){
 			var selectedPosition = $.inArray(activityList[i],selectedNames) + 1;
 			if ($.inArray(activityList[i],selectedNames) >= 0){
 				tx.executeSql('UPDATE ICONLIST SET POSITION=? WHERE ICON_NAME=? ', [selectedPosition.toString(), activityList[i]], function(tx, res) {
-				}, db_errorCB);
+				});
 			} else {
 				tx.executeSql('UPDATE ICONLIST SET POSITION=? WHERE ICON_NAME=? ', ['-', activityList[i]], function(tx, res) {
-				}, db_errorCB);
+				});
 			}
 			
 		}
 		
-	});
+	}, db_errorCB);
 }
 
 //DB 초기화
-function db_init() {
+/*function db_init() {
 	db.transaction(function(tx) {
 		//tx.executeSql('DROP TABLE IF EXISTS ICONLIST');
 		tx.executeSql('CREATE TABLE IF NOT EXISTS ICONLIST (POSITION TEXT, ICON_NAME TEXT PRIMARY KEY, CLASS_NAME TEXT, TIMER_VAL INTEGER)');
@@ -163,13 +163,13 @@ function db_init() {
 			+ ' UNION SELECT 0,"code", "fa fa-code", 22'
 			+ ' UNION SELECT 0,"keyboard", "fa fa-keyboard-o", 60');
 	}, db_errorCB);
-}
+}*/
 
 
 
 //DB에 저장된 아이콘 로드
 function loadSelectedIcon(){
-	var iconDiv = $(".selected_icon .icon_row .icon");
+	var iconDiv = $("#selected_icon_row .icon");
 	console.log("Load DB - data (selectedIcon)");
 	db.transaction(function(tx){
 		tx.executeSql('SELECT * FROM ICONLIST', [], function(tx, rs){
@@ -198,7 +198,7 @@ function loadSelectedIcon(){
 
 // setting icon replace
 function setting_drag() {
-	$('.icon>i').draggable({distance: 20}, {revert: true}, {revertDuration: 0}, {containment: ".selected_icon"}, {zIndex: 9});
+	$('.icon>i').draggable({distance: 20}, {revert: true}, {revertDuration: 0}, {containment: "#selected_icon"}, {zIndex: 9});
 }
 
 function setting_drop() {
