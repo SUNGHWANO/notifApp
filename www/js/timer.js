@@ -1,7 +1,7 @@
 //=========== Stop watch
-var	clsStopwatch = function(lapTime) {
+var	clsStopwatch = function() {
 	var	startAt	= 0;	// Time of last start / resume. (0 if not running)
-	var	lapTime;	// Time on the clock when last stopped in milliseconds
+	var	lapTime	= 0;	// Time on the clock when last stopped in milliseconds
 	var	now	= function() {
 		return (new Date()).getTime(); 
 	}; 
@@ -20,34 +20,9 @@ var	clsStopwatch = function(lapTime) {
 	};
 };
 
-var x = new clsStopwatch(0);
+var x = new clsStopwatch();
 var $time;
 var clocktimer;
-
-function timer_update(id) {
-	$id.innerHTML = formatTime(x.time());
-}
-
-function timer_stop() {
-	x.stop();
-	clearInterval(clocktimer);
-}
-
-function timer_reset() {
-	timer_stop();
-	x.reset();
-	timer_update();
-}
-
-//타이머 출력 함수
-function timer_doing(id) {
-	lapTime = 1000000;
-	
-	$id = document.getElementById(id);
-	$id.innerHTML = formatTime(x.time());
-	clocktimer = setInterval("timer_update("+ id + ")", 1);
-	x.start();
-}
 
 function pad(num, size) {
 	var s = "0000" + num;
@@ -72,3 +47,26 @@ function formatTime(time) {
 	}
 	return newTime;
 }
+
+
+function timer_update(id) {
+	$id.innerHTML = formatTime(x.time());
+}
+function timer_stop() {
+	x.stop();
+	clearInterval(clocktimer);
+}
+function timer_reset() {
+	timer_stop();
+	x.reset();
+	timer_update();
+}
+
+//타이머 출력 함수
+function timer_doing(id) {
+	$id = document.getElementById(id);
+	$id.innerHTML = formatTime(x.time());
+	clocktimer = setInterval("timer_update("+ id + ")", 1);
+	x.start();
+}
+

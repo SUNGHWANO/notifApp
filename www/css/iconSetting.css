@@ -11,7 +11,7 @@
 		src: url('../font/orbitron-light-webfont.woff') format('woff');		
 }
 
-body {font-family: 'orbitron', sans-serif; }
+body { font-family: 'orbitron', sans-serif; }
 
 hr {
   width: 62px;
@@ -44,10 +44,11 @@ hr {
 	border: none;
 	text-shadow: none;
 	color: white;
-	z-index: 99;
 }
-.header a{ position: absolute; left: 0; width: 70px;
-text-decoration: none; color: #fff; font-size: 100%;}
+.header,.selected_icon{
+		z-index: 99;
+}
+
 * { margin: 0px; padding: 0px;}
 
 .activity_group{
@@ -58,21 +59,22 @@ text-decoration: none; color: #fff; font-size: 100%;}
 }
 .all_icon{
 		padding-top: 230px;
+		background: #EEE;
 }
 
 
 /* 분류별 아이콘 div */
-.icon_theme{min-width: 300px;	min-height: 140px;/* border: 1px solid white */;	clear: both;}
+.icon_theme{min-width: 300px;	min-height: 140px;heigh: auto;/* border: 1px solid white */;	clear: both;}
 
 
 
 /* 선택된 아이콘 div */
-#selected_icon {	z-index: 999;height: 180px; width: 100%; background: white;  position: fixed; margin-top: 50px; }
+.selected_icon{height: 180px; width: 100%; background: white;  position: fixed; margin-top: 50px; }
 
 .back{z-index: 9999;width: 25px; height: 25px; margin: 0px 0px 0px 10px;  }
 
 /* 선택된아이콘 한줄 */
-.icon_row{min-width: 300px; overflow: auto;margin: 0 auto;}
+.icon_row{min-width: 300px;margin: 0 auto;}
 
 /* icon 하나 박싱 */
 .icon{width: 100px;	height: 70px; float: left;}
@@ -87,16 +89,14 @@ i{float: left;	margin: 5px;}
 	text-shadow: none;
 }
 
-#selected_icon_row {
-	width: 320px;
+.selected_icon .icon_row{
+	width: 220px;
 	padding: 10px 10px 10px 40px;
-	margin: 0px auto;
+	margin: 0px auto 0px;
 }
 
-.check{z-index:9px;}
-
 .all_icon .icon_theme{
-	background: #EEE;
+/* 	background: #EEE; */
 	padding: 5px 0px 5px 15px;
 
 }
@@ -132,7 +132,7 @@ i{float: left;	margin: 5px;}
 
 .check{
 	position: absolute;
-	float: left;
+	float: none;
 }
 .fa-glass{font-size: 2.5em;}
 .fa-mobile {font-size: 4em;}
