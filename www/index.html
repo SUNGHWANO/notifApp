@@ -16,25 +16,25 @@
         // Empty
     }
 
-    // alert dialog dismissed
-        function alertDismissed() {
-            // do something
-        }
+    // process the confirmation dialog result
+    function onConfirm(buttonIndex) {
+        alert('You selected button ' + buttonIndex);
+    }
 
-    // Show a custom alertDismissed
+    // Show a custom confirmation dialog
     //
-    function showAlert() {
-        navigator.notification.alert(
-            'You are the winner!',  // message
-            alertDismissed,         // callback
-            'Game Over',            // title
-            'Done'                  // buttonName
+    function showConfirm() {
+        navigator.notification.confirm(
+            'You are the winner!', // message
+             onConfirm,            // callback to invoke with index of button pressed
+            'Game Over',           // title
+            ['Restart','Exit']         // buttonLabels
         );
     }
 
     </script>
   </head>
   <body>
-    <p><a href="#" onclick="showAlert(); return false;">Show Alert</a></p>
+    <p><a href="#" onclick="showConfirm(); return false;">Show Confirm</a></p>
   </body>
 </html>
